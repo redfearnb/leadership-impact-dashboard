@@ -1,432 +1,240 @@
-import React, { useState } from 'react';
-import { Users, TrendingUp, Target, Award, Zap, DollarSign, Clock, Shield, CheckCircle, ChevronRight } from 'lucide-react';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leadership Impact Dashboard | Brady Redfearn, PhD</title>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div id="root"></div>
 
-const LeadershipImpactDashboard = () => {
-  const [activeView, setActiveView] = useState('overview');
+    <script type="text/babel">
+        // Access React hooks from the global React object
+        const { useState } = React;
 
-  const leadershipMetrics = [
-    {
-      category: 'Team Growth & Development',
-      icon: Users,
-      color: '#3b82f6',
-      metrics: [
-        { label: 'Teams Led', value: '12+', description: 'Engineers & researchers across five concurrent programs' },
-        { label: 'Students Mentored', value: '200+', description: 'Through academic lab and research programs' },
-        { label: 'Lab Membership Growth', value: '0 → 250', description: 'AR/VR innovation lab in 2 years' },
-        { label: 'Team Capacity Increase', value: '3x', description: 'Delivery capacity tripled through process improvements' }
-      ]
-    },
-    {
-      category: 'Portfolio & Revenue Impact',
-      icon: DollarSign,
-      color: '#10b981',
-      metrics: [
-        { label: 'Portfolio Managed', value: '$45M', description: 'Six commercial programs delivered simultaneously' },
-        { label: 'Revenue Growth', value: '2x', description: 'Doubled portfolio revenue in 3 years' },
-        { label: 'Contracts Secured', value: '$26M', description: 'DOE Environmental Management program' },
-        { label: 'Lab Funding Raised', value: '$325K', description: 'For university innovation lab operations' }
-      ]
-    },
-    {
-      category: 'Operational Excellence',
-      icon: Zap,
-      color: '#f59e0b',
-      metrics: [
-        { label: 'Sprint Cadence', value: '2 weeks', description: 'Instituted reliable delivery rhythm' },
-        { label: 'Cost Savings', value: '$200K', description: 'Through rapid validation sprints' },
-        { label: 'Interfaces Validated', value: '200', description: 'In 60 days through design sprints' },
-        { label: 'Projects Delivered', value: '12+', description: 'LLM prototypes for cybersecurity use cases' }
-      ]
-    },
-    {
-      category: 'Strategic Influence',
-      icon: Target,
-      color: '#8b5cf6',
-      metrics: [
-        { label: 'Executive Briefings', value: '30+', description: 'Delivered to C-suite and senior leadership' },
-        { label: 'Strategic Reports', value: '6', description: 'Operational assessments guiding procurement' },
-        { label: 'Pipeline Impact', value: '$51B', description: 'GTM proposals supporting commercial pipeline' },
-        { label: 'Security Clearance', value: 'Secret', description: 'Active through 2027 for sensitive programs' }
-      ]
-    }
-  ];
+        // Map Lucide icons from the global lucide object
+        const { 
+            Users, TrendingUp, Target, Award, Zap, 
+            DollarSign, Clock, Shield, CheckCircle, ChevronRight 
+        } = lucide;
 
-  const leadershipPrinciples = [
-    {
-      principle: 'Enable Through Clarity',
-      description: 'Remove ambiguity by defining clear acceptance criteria, success metrics, and decision frameworks. Teams deliver when they understand what "done" looks like.',
-      example: 'Tripled delivery capacity at BluePath Labs by clarifying acceptance criteria and removing execution blockers - no headcount increase needed.',
-      impact: '3x capacity increase',
-      icon: Target
-    },
-    {
-      principle: 'Rhythm Over Heroics',
-      description: 'Sustainable velocity comes from predictable cadence, not last-minute sprints. Institute repeatable processes that compound over time.',
-      example: 'Implemented two-week sprint cadence across five teams, doubling portfolio revenue while reducing burnout and context-switching.',
-      impact: '2x revenue growth',
-      icon: Clock
-    },
-    {
-      principle: 'Technical Fluency as Leadership Tool',
-      description: 'Understanding the OSI stack, cloud architecture, and ML pipelines enables better product decisions and earns engineering trust.',
-      example: 'Led 12 LLM prototype initiatives by defining reproducible evaluation pipelines - spoke the language of both researchers and stakeholders.',
-      impact: '12 AI projects delivered',
-      icon: Zap
-    },
-    {
-      principle: 'Customer Discovery Over Assumptions',
-      description: 'Run lean discovery engagements with real users before committing resources. Validate pain points, not just solutions.',
-      example: 'Conducted six customer discovery sessions with emergency services leadership, translating frontline needs into prioritized requirements.',
-      impact: '$200K cost avoidance',
-      icon: Users
-    },
-    {
-      principle: 'Compliance as Competitive Advantage',
-      description: 'In regulated markets, security and compliance aren\'t overhead - they\'re differentiators that win contracts.',
-      example: 'CMMC 2.0 and NIST RMF expertise enabled $26M DOE contract win and positioned firm for defense sector growth.',
-      impact: '$26M contract secured',
-      icon: Shield
-    },
-    {
-      principle: 'Mentor for Multiplier Effect',
-      description: 'Invest in developing others\' capabilities. A well-mentored team scales impact far beyond any individual contribution.',
-      example: 'Mentored 200+ students through commercialization pathways, with many now in SaaS, EdTech, and cybersecurity leadership roles.',
-      impact: '200+ careers launched',
-      icon: Award
-    }
-  ];
+        const LeadershipImpactDashboard = () => {
+            const [activeView, setActiveView] = useState('overview');
 
-  const cultureImpacts = [
-    {
-      organization: 'BluePath Labs',
-      transformation: 'From ad-hoc delivery to systematic product operations',
-      before: [
-        'No defined sprint cadence',
-        'Unclear acceptance criteria',
-        'Reactive roadmap planning',
-        'Single-threaded execution'
-      ],
-      after: [
-        'Two-week sprint rhythm across all teams',
-        'Clear definition of done for all initiatives',
-        'Quarterly roadmap planning with stakeholder alignment',
-        'Five concurrent programs delivered reliably'
-      ],
-      quote: 'Brady transformed how we think about product delivery. We went from firefighting to strategic execution.',
-      author: 'Engineering Leadership, BluePath Labs'
-    },
-    {
-      organization: 'BYU Innovation Lab',
-      transformation: 'From concept to operational research-to-product pipeline',
-      before: [
-        'No formal lab structure',
-        'Academic research disconnected from industry',
-        'Limited student engagement',
-        'Zero external funding'
-      ],
-      after: [
-        'Governance model with 250+ engaged members',
-        'Research prototypes converted to commercial POCs',
-        '$325K in sustained funding',
-        'Industry partnerships and sponsored projects'
-      ],
-      quote: 'Brady didn\'t just start a lab - he built an entire ecosystem connecting students, research, and industry.',
-      author: 'Derek Hansen, Professor, BYU'
-    },
-    {
-      organization: 'MetaSource (Previous Role)',
-      transformation: 'From engineering-driven to UX-centered product culture',
-      before: [
-        'Features designed by engineers',
-        'UX as afterthought polish',
-        'High post-release rework',
-        'Customer feedback loop broken'
-      ],
-      after: [
-        'User research informing all product decisions',
-        'UX integrated into development process',
-        'Design validation before implementation',
-        'CEO: "We\'re a UX company now"'
-      ],
-      quote: 'Brady was almost single-handedly responsible for turning the culture of this software development company into what the CEO proudly termed, "a UX company."',
-      author: 'Bret Swan, Director of Product Development'
-    }
-  ];
+            const leadershipMetrics = [
+                {
+                    category: 'Team Growth & Development',
+                    icon: Users,
+                    color: '#3b82f6',
+                    metrics: [
+                        { label: 'Teams Led', value: '12+', description: 'Engineers & researchers across five concurrent programs' },
+                        { label: 'Students Mentored', value: '200+', description: 'Through academic lab and research programs' },
+                        { label: 'Lab Membership Growth', value: '0 → 250', description: 'AR/VR innovation lab in 2 years' },
+                        { label: 'Team Capacity Increase', value: '3x', description: 'Delivery capacity tripled through process improvements' }
+                    ]
+                },
+                {
+                    category: 'Portfolio & Revenue Impact',
+                    icon: DollarSign,
+                    color: '#10b981',
+                    metrics: [
+                        { label: 'Portfolio Managed', value: '$45M', description: 'Six commercial programs delivered simultaneously' },
+                        { label: 'Revenue Growth', value: '2x', description: 'Doubled portfolio revenue in 3 years' },
+                        { label: 'Contracts Secured', value: '$26M', description: 'DOE Environmental Management program' },
+                        { label: 'Lab Funding Raised', value: '$325K', description: 'For university innovation lab operations' }
+                    ]
+                },
+                {
+                    category: 'Operational Excellence',
+                    icon: Zap,
+                    color: '#f59e0b',
+                    metrics: [
+                        { label: 'Sprint Cadence', value: '2 weeks', description: 'Instituted reliable delivery rhythm' },
+                        { label: 'Cost Savings', value: '$200K', description: 'Through rapid validation sprints' },
+                        { label: 'Interfaces Validated', value: '200', description: 'In 60 days through design sprints' },
+                        { label: 'Projects Delivered', value: '12+', description: 'LLM prototypes for cybersecurity use cases' }
+                    ]
+                },
+                {
+                    category: 'Strategic Influence',
+                    icon: Target,
+                    color: '#8b5cf6',
+                    metrics: [
+                        { label: 'Executive Briefings', value: '30+', description: 'Delivered to C-suite and senior leadership' },
+                        { label: 'Strategic Reports', value: '6', description: 'Operational assessments guiding procurement' },
+                        { label: 'Pipeline Impact', value: '$51B', description: 'GTM proposals supporting commercial pipeline' },
+                        { label: 'Security Clearance', value: 'Secret', description: 'Active through 2027 for sensitive programs' }
+                    ]
+                }
+            ];
 
-  return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(to bottom right, #f8fafc, #e2e8f0)' }}>
-      {/* Header */}
-      <div style={{ background: 'linear-gradient(to right, #0f172a, #1e3a8a)', color: 'white', padding: '3rem 2rem' }}>
-        <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-          <h1 style={{ fontSize: '3rem', fontWeight: 'bold', marginBottom: '0.75rem' }}>Leadership Impact Dashboard</h1>
-          <p style={{ fontSize: '1.25rem', opacity: 0.9, marginBottom: '0.5rem' }}>Driving measurable outcomes through team enablement and operational excellence</p>
-          <p style={{ fontSize: '0.875rem', opacity: 0.7 }}>16+ years scaling teams, portfolios, and organizations across defense, AI, and enterprise SaaS</p>
-          <a href="https://redfearnb.github.io" style={{ display: 'inline-block', marginTop: '1.5rem', color: 'white', textDecoration: 'none', opacity: 0.8, fontSize: '0.9rem' }}>← Back to Portfolio</a>
-        </div>
-      </div>
+            const leadershipPrinciples = [
+                {
+                    principle: 'Enable Through Clarity',
+                    description: 'Remove ambiguity by defining clear acceptance criteria, success metrics, and decision frameworks.',
+                    example: 'Tripled delivery capacity at BluePath Labs by clarifying acceptance criteria.',
+                    impact: '3x capacity increase',
+                    icon: Target
+                },
+                {
+                    principle: 'Rhythm Over Heroics',
+                    description: 'Sustainable velocity comes from predictable cadence, not last-minute sprints.',
+                    example: 'Implemented two-week sprint cadence across five teams, doubling portfolio revenue.',
+                    impact: '2x revenue growth',
+                    icon: Clock
+                },
+                {
+                    principle: 'Technical Fluency as Leadership Tool',
+                    description: 'Understanding stacks and pipelines enables better product decisions.',
+                    example: 'Led 12 LLM prototype initiatives by defining reproducible evaluation pipelines.',
+                    impact: '12 AI projects delivered',
+                    icon: Zap
+                },
+                {
+                    principle: 'Customer Discovery Over Assumptions',
+                    description: 'Run lean discovery engagements with real users before committing resources.',
+                    example: 'Conducted six customer discovery sessions with emergency services leadership.',
+                    impact: '$200K cost avoidance',
+                    icon: Users
+                },
+                {
+                    principle: 'Compliance as Competitive Advantage',
+                    description: 'Security and compliance aren\'t overhead - they\'re differentiators.',
+                    example: 'CMMC 2.0 and NIST RMF expertise enabled $26M DOE contract win.',
+                    impact: '$26M contract secured',
+                    icon: Shield
+                },
+                {
+                    principle: 'Mentor for Multiplier Effect',
+                    description: 'Invest in developing others\' capabilities.',
+                    example: 'Mentored 200+ students through commercialization pathways.',
+                    impact: '200+ careers launched',
+                    icon: Award
+                }
+            ];
 
-      {/* Navigation */}
-      <div style={{ background: 'white', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', position: 'sticky', top: 0, zIndex: 100 }}>
-        <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 2rem' }}>
-          <div style={{ display: 'flex', gap: '2rem', overflowX: 'auto' }}>
-            {['overview', 'principles', 'culture'].map((view) => (
-              <button
-                key={view}
-                onClick={() => setActiveView(view)}
-                style={{
-                  padding: '1rem 0.5rem',
-                  border: 'none',
-                  borderBottom: activeView === view ? '3px solid #3b82f6' : '3px solid transparent',
-                  background: 'none',
-                  color: activeView === view ? '#3b82f6' : '#64748b',
-                  fontWeight: '600',
-                  cursor: 'pointer',
-                  fontSize: '1rem',
-                  textTransform: 'capitalize',
-                  whiteSpace: 'nowrap'
-                }}
-              >
-                {view === 'overview' ? 'Impact Metrics' : view === 'principles' ? 'Leadership Principles' : 'Cultural Transformation'}
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
+            const cultureImpacts = [
+                {
+                    organization: 'BluePath Labs',
+                    transformation: 'From ad-hoc delivery to systematic product operations',
+                    before: ['No defined sprint cadence', 'Unclear acceptance criteria'],
+                    after: ['Two-week sprint rhythm', 'Clear definition of done'],
+                    quote: 'Brady transformed how we think about product delivery.',
+                    author: 'Engineering Leadership, BluePath Labs'
+                },
+                {
+                    organization: 'BYU Innovation Lab',
+                    transformation: 'From concept to operational research-to-product pipeline',
+                    before: ['No formal lab structure', 'Academic research disconnected'],
+                    after: ['Governance model with 250+ members', '$325K in sustained funding'],
+                    quote: 'Brady built an entire ecosystem connecting students, research, and industry.',
+                    author: 'Derek Hansen, Professor, BYU'
+                },
+                {
+                    organization: 'MetaSource',
+                    transformation: 'From engineering-driven to UX-centered product culture',
+                    before: ['Features designed by engineers', 'UX as afterthought polish'],
+                    after: ['User research informing all decisions', 'UX integrated into dev process'],
+                    quote: 'Brady turned the culture into what the CEO termed, "a UX company."',
+                    author: 'Bret Swan, Director of Product Development'
+                }
+            ];
 
-      <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '2rem' }}>
-        {/* Overview - Impact Metrics */}
-        {activeView === 'overview' && (
-          <div>
-            <div style={{ marginBottom: '2rem' }}>
-              <h2 style={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '0.5rem', color: '#0f172a' }}>Quantifiable Leadership Impact</h2>
-              <p style={{ color: '#64748b', fontSize: '1.125rem' }}>
-                Measurable outcomes from leading cross-functional teams and complex portfolios
-              </p>
-            </div>
-
-            <div style={{ display: 'grid', gap: '2rem' }}>
-              {leadershipMetrics.map((category, idx) => (
-                <div key={idx} style={{ background: 'white', borderRadius: '0.75rem', boxShadow: '0 2px 8px rgba(0,0,0,0.1)', overflow: 'hidden' }}>
-                  <div style={{ 
-                    background: `linear-gradient(135deg, ${category.color}, ${category.color}dd)`, 
-                    color: 'white', 
-                    padding: '1.5rem',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '1rem'
-                  }}>
-                    <div style={{ background: 'rgba(255,255,255,0.2)', padding: '0.75rem', borderRadius: '0.5rem' }}>
-                      <category.icon size={28} />
-                    </div>
-                    <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>{category.category}</h3>
-                  </div>
-                  
-                  <div style={{ padding: '2rem' }}>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem' }}>
-                      {category.metrics.map((metric, i) => (
-                        <div key={i} style={{ 
-                          background: 'linear-gradient(to bottom right, #f8fafc, white)', 
-                          padding: '1.25rem', 
-                          borderRadius: '0.5rem',
-                          border: '1px solid #e2e8f0'
-                        }}>
-                          <div style={{ fontSize: '0.75rem', fontWeight: '600', color: '#64748b', textTransform: 'uppercase', marginBottom: '0.5rem', letterSpacing: '0.05em' }}>
-                            {metric.label}
-                          </div>
-                          <div style={{ fontSize: '2.5rem', fontWeight: 'bold', color: category.color, lineHeight: 1, marginBottom: '0.5rem' }}>
-                            {metric.value}
-                          </div>
-                          <div style={{ fontSize: '0.875rem', color: '#475569', lineHeight: '1.5' }}>
-                            {metric.description}
-                          </div>
+            return (
+                <div style={{ minHeight: '100vh', background: 'linear-gradient(to bottom right, #f8fafc, #e2e8f0)', fontFamily: 'sans-serif' }}>
+                    <div style={{ background: 'linear-gradient(to right, #0f172a, #1e3a8a)', color: 'white', padding: '3rem 2rem' }}>
+                        <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+                            <h1 style={{ fontSize: '3rem', fontWeight: 'bold', marginBottom: '0.75rem' }}>Leadership Impact Dashboard</h1>
+                            <p style={{ fontSize: '1.25rem', opacity: 0.9 }}>Driving measurable outcomes through team enablement and operational excellence</p>
                         </div>
-                      ))}
                     </div>
-                  </div>
-                </div>
-              ))}
-            </div>
 
-            {/* Key Achievements Summary */}
-            <div style={{ background: 'linear-gradient(to bottom right, #eff6ff, #dbeafe)', borderRadius: '0.75rem', padding: '2rem', marginTop: '2rem', border: '1px solid #93c5fd' }}>
-              <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1.5rem', color: '#1e3a8a' }}>Career Leadership Highlights</h3>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem' }}>
-                {[
-                  'Scaled product portfolio from pilot to $45M in managed scope',
-                  'Doubled portfolio revenue while tripling delivery capacity',
-                  'Led 12+ engineers and researchers across five concurrent programs',
-                  'Secured $26M DOE and $7.8M CASI government contracts',
-                  'Raised $325K in lab funding and grew membership to 250+',
-                  'Mentored 200+ students into successful SaaS and tech careers',
-                  'Delivered 30+ executive briefings shaping strategic decisions',
-                  'Validated 200 interfaces in 60 days, saving $200K in development costs'
-                ].map((achievement, i) => (
-                  <div key={i} style={{ display: 'flex', alignItems: 'start', gap: '0.75rem' }}>
-                    <CheckCircle size={20} style={{ color: '#3b82f6', flexShrink: 0, marginTop: '0.125rem' }} />
-                    <span style={{ color: '#1e3a8a', fontSize: '0.9rem', lineHeight: '1.5' }}>{achievement}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Leadership Principles */}
-        {activeView === 'principles' && (
-          <div>
-            <div style={{ marginBottom: '2rem' }}>
-              <h2 style={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '0.5rem', color: '#0f172a' }}>Leadership Philosophy</h2>
-              <p style={{ color: '#64748b', fontSize: '1.125rem' }}>
-                Six core principles that drive team performance and sustainable delivery
-              </p>
-            </div>
-
-            <div style={{ display: 'grid', gap: '1.5rem' }}>
-              {leadershipPrinciples.map((item, idx) => (
-                <div key={idx} style={{ background: 'white', borderRadius: '0.75rem', boxShadow: '0 2px 8px rgba(0,0,0,0.1)', overflow: 'hidden' }}>
-                  <div style={{ padding: '2rem' }}>
-                    <div style={{ display: 'flex', alignItems: 'start', gap: '1.5rem' }}>
-                      <div style={{ 
-                        background: 'linear-gradient(135deg, #3b82f6, #2563eb)', 
-                        color: 'white', 
-                        padding: '1rem', 
-                        borderRadius: '0.75rem',
-                        flexShrink: 0
-                      }}>
-                        <item.icon size={32} />
-                      </div>
-                      
-                      <div style={{ flex: 1 }}>
-                        <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '0.75rem', color: '#0f172a' }}>
-                          {item.principle}
-                        </h3>
-                        <p style={{ color: '#475569', marginBottom: '1.25rem', lineHeight: '1.7', fontSize: '1.05rem' }}>
-                          {item.description}
-                        </p>
-                        
-                        <div style={{ background: '#f8fafc', padding: '1.25rem', borderRadius: '0.5rem', borderLeft: '4px solid #3b82f6' }}>
-                          <div style={{ fontSize: '0.75rem', fontWeight: '600', color: '#64748b', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
-                            Real-World Application
-                          </div>
-                          <p style={{ color: '#1e293b', marginBottom: '0.75rem', lineHeight: '1.6' }}>
-                            {item.example}
-                          </p>
-                          <div style={{ display: 'inline-block', background: '#dbeafe', color: '#1e40af', padding: '0.375rem 0.75rem', borderRadius: '1rem', fontSize: '0.875rem', fontWeight: '600' }}>
-                            Impact: {item.impact}
-                          </div>
+                    <div style={{ background: 'white', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', position: 'sticky', top: 0, zIndex: 100 }}>
+                        <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 2rem', display: 'flex', gap: '2rem' }}>
+                            {['overview', 'principles', 'culture'].map((view) => (
+                                <button key={view} onClick={() => setActiveView(view)} style={{
+                                    padding: '1rem 0.5rem', border: 'none', background: 'none', cursor: 'pointer',
+                                    borderBottom: activeView === view ? '3px solid #3b82f6' : '3px solid transparent',
+                                    color: activeView === view ? '#3b82f6' : '#64748b', fontWeight: '600'
+                                }}>
+                                    {view === 'overview' ? 'Impact Metrics' : view === 'principles' ? 'Leadership Principles' : 'Cultural Transformation'}
+                                </button>
+                            ))}
                         </div>
-                      </div>
                     </div>
-                  </div>
-                </div>
-              ))}
-            </div>
 
-            <div style={{ background: 'linear-gradient(to right, #0f172a, #1e3a8a)', color: 'white', borderRadius: '0.75rem', padding: '2rem', marginTop: '2rem' }}>
-              <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1rem' }}>Leadership Style: Technical Enabler</h3>
-              <p style={{ opacity: 0.9, lineHeight: '1.7', marginBottom: '1rem' }}>
-                I don't lead by controlling decisions - I lead by removing obstacles. My technical fluency (systems engineering, cloud architecture, ML pipelines) lets me understand constraints, translate tradeoffs, and make informed product calls that engineering teams trust.
-              </p>
-              <p style={{ opacity: 0.9, lineHeight: '1.7' }}>
-                I vibe code when needed, but my real value is enabling teams to execute autonomously. Clear acceptance criteria, reproducible processes, and transparent prioritization frameworks mean teams deliver without constant oversight. That's how you scale from 1 team to 5 teams to 12+ people without chaos.
-              </p>
-            </div>
-          </div>
-        )}
+                    <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '2rem' }}>
+                        {activeView === 'overview' && (
+                            <div style={{ display: 'grid', gap: '2rem' }}>
+                                {leadershipMetrics.map((category, idx) => (
+                                    <div key={idx} style={{ background: 'white', borderRadius: '0.75rem', overflow: 'hidden', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
+                                        <div style={{ background: category.color, color: 'white', padding: '1.5rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                                            <category.icon size={24} />
+                                            <h3 style={{ margin: 0 }}>{category.category}</h3>
+                                        </div>
+                                        <div style={{ padding: '2rem', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem' }}>
+                                            {category.metrics.map((m, i) => (
+                                                <div key={i} style={{ padding: '1.25rem', border: '1px solid #e2e8f0', borderRadius: '0.5rem' }}>
+                                                    <div style={{ fontSize: '0.75rem', color: '#64748b', textTransform: 'uppercase' }}>{m.label}</div>
+                                                    <div style={{ fontSize: '2.5rem', fontWeight: 'bold', color: category.color }}>{m.value}</div>
+                                                    <div style={{ fontSize: '0.875rem', color: '#475569' }}>{m.description}</div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
 
-        {/* Cultural Transformation */}
-        {activeView === 'culture' && (
-          <div>
-            <div style={{ marginBottom: '2rem' }}>
-              <h2 style={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '0.5rem', color: '#0f172a' }}>Organizational Transformations</h2>
-              <p style={{ color: '#64748b', fontSize: '1.125rem' }}>
-                Case studies of cultural change and operational improvement across organizations
-              </p>
-            </div>
+                        {activeView === 'principles' && (
+                            <div style={{ display: 'grid', gap: '1.5rem' }}>
+                                {leadershipPrinciples.map((p, idx) => (
+                                    <div key={idx} style={{ background: 'white', padding: '2rem', borderRadius: '0.75rem', boxShadow: '0 2px 8px rgba(0,0,0,0.1)', display: 'flex', gap: '1.5rem' }}>
+                                        <div style={{ background: '#3b82f6', color: 'white', padding: '1rem', borderRadius: '0.5rem', height: 'fit-content' }}>
+                                            <p.icon size={32} />
+                                        </div>
+                                        <div>
+                                            <h3 style={{ marginTop: 0 }}>{p.principle}</h3>
+                                            <p style={{ color: '#475569' }}>{p.description}</p>
+                                            <div style={{ background: '#f8fafc', padding: '1rem', borderLeft: '4px solid #3b82f6' }}>
+                                                <p style={{ margin: '0 0 0.5rem 0' }}>{p.example}</p>
+                                                <span style={{ fontWeight: 'bold', color: '#1e40af' }}>Impact: {p.impact}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
 
-            <div style={{ display: 'grid', gap: '2rem' }}>
-              {cultureImpacts.map((org, idx) => (
-                <div key={idx} style={{ background: 'white', borderRadius: '0.75rem', boxShadow: '0 2px 8px rgba(0,0,0,0.1)', overflow: 'hidden' }}>
-                  <div style={{ background: 'linear-gradient(135deg, #8b5cf6, #7c3aed)', color: 'white', padding: '1.5rem' }}>
-                    <h3 style={{ fontSize: '1.75rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>{org.organization}</h3>
-                    <p style={{ opacity: 0.95, fontSize: '1.05rem' }}>{org.transformation}</p>
-                  </div>
-                  
-                  <div style={{ padding: '2rem' }}>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', marginBottom: '2rem' }}>
-                      <div>
-                        <h4 style={{ fontWeight: '600', color: '#dc2626', marginBottom: '1rem', fontSize: '1.125rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                          <span>❌</span> Before
-                        </h4>
-                        <ul style={{ listStyle: 'none', paddingLeft: 0 }}>
-                          {org.before.map((item, i) => (
-                            <li key={i} style={{ 
-                              marginBottom: '0.75rem', 
-                              color: '#475569',
-                              paddingLeft: '1.5rem',
-                              position: 'relative'
-                            }}>
-                              <span style={{ position: 'absolute', left: 0, color: '#dc2626' }}>▸</span>
-                              {item}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                      
-                      <div>
-                        <h4 style={{ fontWeight: '600', color: '#16a34a', marginBottom: '1rem', fontSize: '1.125rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                          <span>✓</span> After
-                        </h4>
-                        <ul style={{ listStyle: 'none', paddingLeft: 0 }}>
-                          {org.after.map((item, i) => (
-                            <li key={i} style={{ 
-                              marginBottom: '0.75rem', 
-                              color: '#475569',
-                              paddingLeft: '1.5rem',
-                              position: 'relative'
-                            }}>
-                              <span style={{ position: 'absolute', left: 0, color: '#16a34a' }}>▸</span>
-                              {item}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
+                        {activeView === 'culture' && (
+                            <div style={{ display: 'grid', gap: '2rem' }}>
+                                {cultureImpacts.map((org, idx) => (
+                                    <div key={idx} style={{ background: 'white', borderRadius: '0.75rem', overflow: 'hidden', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
+                                        <div style={{ background: '#8b5cf6', color: 'white', padding: '1.5rem' }}>
+                                            <h3 style={{ margin: 0 }}>{org.organization}</h3>
+                                            <p style={{ margin: '0.5rem 0 0 0' }}>{org.transformation}</p>
+                                        </div>
+                                        <div style={{ padding: '2rem' }}>
+                                            <div style={{ background: '#f8fafc', padding: '1.5rem', borderLeft: '4px solid #8b5cf6', fontStyle: 'italic' }}>
+                                                "{org.quote}"
+                                                <div style={{ fontSize: '0.875rem', color: '#64748b', marginTop: '0.5rem', fontStyle: 'normal' }}>— {org.author}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
                     </div>
-                    
-                    <div style={{ background: '#f8fafc', padding: '1.5rem', borderRadius: '0.5rem', borderLeft: '4px solid #8b5cf6' }}>
-                      <blockquote style={{ fontSize: '1.05rem', fontStyle: 'italic', color: '#1e293b', marginBottom: '0.75rem', lineHeight: '1.7' }}>
-                        "{org.quote}"
-                      </blockquote>
-                      <div style={{ fontSize: '0.875rem', color: '#64748b', fontWeight: '500' }}>
-                        — {org.author}
-                      </div>
-                    </div>
-                  </div>
                 </div>
-              ))}
-            </div>
+            );
+        };
 
-            <div style={{ background: 'linear-gradient(to bottom right, #fef3c7, #fde68a)', borderRadius: '0.75rem', padding: '2rem', marginTop: '2rem', border: '1px solid #fbbf24' }}>
-              <div style={{ display: 'flex', gap: '1rem' }}>
-                <div style={{ fontSize: '2rem' }}>💡</div>
-                <div>
-                  <h3 style={{ fontWeight: 'bold', marginBottom: '0.75rem', color: '#78350f', fontSize: '1.25rem' }}>
-                    Pattern Recognition: What Makes Transformation Stick
-                  </h3>
-                  <p style={{ color: '#451a03', lineHeight: '1.7', marginBottom: '0.75rem' }}>
-                    Cultural change fails when it's top-down mandate. It succeeds when you create visible wins, build coalitions of champions, and install repeatable systems that outlive your tenure.
-                  </p>
-                  <p style={{ color: '#451a03', lineHeight: '1.7' }}>
-                    At BluePath, MetaSource, and BYU, the pattern was identical: start small, demonstrate value quickly, build momentum through advocates, then systematize for scale. That's how you go from "Brady's doing UX stuff" to "We're a UX company."
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-};
-
-export default LeadershipImpactDashboard;
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<LeadershipImpactDashboard />);
+    </script>
+</body>
+</html>
