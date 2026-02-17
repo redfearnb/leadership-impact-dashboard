@@ -4,125 +4,303 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leadership Impact Dashboard | Brady Redfearn, PhD</title>
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #8b5cf6;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --bg-light: #f8fafc;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --warning: #f59e0b;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-light);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 1.5rem;
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+
+        .back-link:hover { opacity: 1; }
+
+        /* Tabs Navigation */
+        .nav-tabs {
+            background: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 2rem;
+            padding: 0 2rem;
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            padding: 1rem 0.5rem;
+            border: none;
+            background: none;
+            font-weight: 600;
+            color: var(--text-secondary);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .tab-view { display: none; }
+        .tab-view.active { display: block; }
+
+        /* Grid Layouts */
+        .metrics-grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            padding: 1.5rem;
+            color: white;
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .metrics-inner-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            padding: 2rem;
+        }
+
+        .metric-item {
+            padding: 1.25rem;
+            background: var(--bg-light);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .metric-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-value {
+            font-size: 2.25rem;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Culture Transformation Styles */
+        .culture-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .quote-box {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background: var(--bg-light);
+            border-left: 4px solid var(--secondary);
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .culture-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2rem; }
+        }
+    </style>
 </head>
 <body>
-    <div id="root"></div>
 
-    <script type="text/babel">
-    const { useState } = React;
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Leadership Impact Dashboard</h1>
+            <p>Driving measurable outcomes through team enablement and operational excellence</p>
+            <a href="https://redfearnb.github.io" class="back-link">← Back to Portfolio</a>
+        </div>
+    </header>
 
-    // The browser build of Lucide puts icons inside the 'icons' property
-    const { 
-        Users, TrendingUp, Target, Award, Zap, 
-        DollarSign, Clock, Shield, CheckCircle, ChevronRight 
-    } = lucide.icons; // Added .icons here
+    <nav class="nav-tabs">
+        <div class="nav-content">
+            <button class="tab-btn active" onclick="showTab('overview')">Impact Metrics</button>
+            <button class="tab-btn" onclick="showTab('principles')">Leadership Principles</button>
+            <button class="tab-btn" onclick="showTab('culture')">Cultural Transformation</button>
+        </div>
+    </nav>
 
-    const LeadershipImpactDashboard = () => {
-        const [activeView, setActiveView] = useState('overview');
-
-        // ... (Keep your metrics, principles, and cultureImpacts arrays exactly as they are) ...
-
-        return (
-            <div style={{ minHeight: '100vh', background: 'linear-gradient(to bottom right, #f8fafc, #e2e8f0)', fontFamily: 'sans-serif' }}>
-                {/* Header */}
-                <div style={{ background: 'linear-gradient(to right, #0f172a, #1e3a8a)', color: 'white', padding: '3rem 2rem' }}>
-                    <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-                        <h1 style={{ fontSize: '3rem', fontWeight: 'bold', marginBottom: '0.75rem' }}>Leadership Impact Dashboard</h1>
-                        <p style={{ fontSize: '1.25rem', opacity: 0.9 }}>Driving measurable outcomes through team enablement and operational excellence</p>
+    <div class="container">
+        <section id="overview" class="tab-view active">
+            <div class="metrics-grid">
+                <div class="card">
+                    <div class="card-header" style="background: var(--primary);">Team Growth & Development</div>
+                    <div class="metrics-inner-grid">
+                        <div class="metric-item">
+                            <div class="metric-label">Teams Led</div>
+                            <div class="metric-value">12+</div>
+                            <p>Engineers across five concurrent programs</p>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-label">Capacity Increase</div>
+                            <div class="metric-value">3x</div>
+                            <p>Triple delivery capacity via process improvements</p>
+                        </div>
                     </div>
                 </div>
 
-                {/* Navigation */}
-                <div style={{ background: 'white', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', position: 'sticky', top: 0, zIndex: 100 }}>
-                    <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 2rem', display: 'flex', gap: '2rem' }}>
-                        {['overview', 'principles', 'culture'].map((view) => (
-                            <button key={view} onClick={() => setActiveView(view)} style={{
-                                padding: '1rem 0.5rem', border: 'none', background: 'none', cursor: 'pointer',
-                                borderBottom: activeView === view ? '3px solid #3b82f6' : '3px solid transparent',
-                                color: activeView === view ? '#3b82f6' : '#64748b', fontWeight: '600'
-                            }}>
-                                {view === 'overview' ? 'Impact Metrics' : view === 'principles' ? 'Leadership Principles' : 'Cultural Transformation'}
-                            </button>
-                        ))}
+                <div class="card">
+                    <div class="card-header" style="background: var(--success);">Portfolio & Revenue Impact</div>
+                    <div class="metrics-inner-grid">
+                        <div class="metric-item">
+                            <div class="metric-label">Portfolio Managed</div>
+                            <div class="metric-value">$45M</div>
+                            <p>Six commercial programs delivered simultaneously</p>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-label">Contracts Secured</div>
+                            <div class="metric-value">$26M</div>
+                            <p>DOE Environmental Management program</p>
+                        </div>
                     </div>
-                </div>
-
-                <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '2rem' }}>
-                    {/* Metrics View */}
-                    {activeView === 'overview' && (
-                        <div style={{ display: 'grid', gap: '2rem' }}>
-                            {leadershipMetrics.map((category, idx) => (
-                                <div key={idx} style={{ background: 'white', borderRadius: '0.75rem', overflow: 'hidden', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
-                                    <div style={{ background: category.color, color: 'white', padding: '1.5rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                                        {/* Use React.createElement to safely render icons from the global object */}
-                                        {React.createElement(category.icon, { size: 24 })}
-                                        <h3 style={{ margin: 0 }}>{category.category}</h3>
-                                    </div>
-                                    <div style={{ padding: '2rem', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem' }}>
-                                        {category.metrics.map((m, i) => (
-                                            <div key={i} style={{ padding: '1.25rem', border: '1px solid #e2e8f0', borderRadius: '0.5rem' }}>
-                                                <div style={{ fontSize: '0.75rem', color: '#64748b', textTransform: 'uppercase' }}>{m.label}</div>
-                                                <div style={{ fontSize: '2.5rem', fontWeight: 'bold', color: category.color }}>{m.value}</div>
-                                                <div style={{ fontSize: '0.875rem', color: '#475569' }}>{m.description}</div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    )}
-
-                    {/* Principles View */}
-                    {activeView === 'principles' && (
-                        <div style={{ display: 'grid', gap: '1.5rem' }}>
-                            {leadershipPrinciples.map((p, idx) => (
-                                <div key={idx} style={{ background: 'white', padding: '2rem', borderRadius: '0.75rem', boxShadow: '0 2px 8px rgba(0,0,0,0.1)', display: 'flex', gap: '1.5rem' }}>
-                                    <div style={{ background: '#3b82f6', color: 'white', padding: '1rem', borderRadius: '0.5rem', height: 'fit-content' }}>
-                                        {React.createElement(p.icon, { size: 32 })}
-                                    </div>
-                                    <div>
-                                        <h3 style={{ marginTop: 0 }}>{p.principle}</h3>
-                                        <p style={{ color: '#475569' }}>{p.description}</p>
-                                        <div style={{ background: '#f8fafc', padding: '1rem', borderLeft: '4px solid #3b82f6' }}>
-                                            <p style={{ margin: '0 0 0.5rem 0' }}>{p.example}</p>
-                                            <span style={{ fontWeight: 'bold', color: '#1e40af' }}>Impact: {p.impact}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    )}
-
-                    {/* Culture View */}
-                    {activeView === 'culture' && (
-                        <div style={{ display: 'grid', gap: '2rem' }}>
-                            {cultureImpacts.map((org, idx) => (
-                                <div key={idx} style={{ background: 'white', borderRadius: '0.75rem', overflow: 'hidden', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
-                                    <div style={{ background: '#8b5cf6', color: 'white', padding: '1.5rem' }}>
-                                        <h3 style={{ margin: 0 }}>{org.organization}</h3>
-                                        <p style={{ margin: '0.5rem 0 0 0' }}>{org.transformation}</p>
-                                    </div>
-                                    <div style={{ padding: '2rem' }}>
-                                        <div style={{ background: '#f8fafc', padding: '1.5rem', borderLeft: '4px solid #8b5cf6', fontStyle: 'italic' }}>
-                                            "{org.quote}"
-                                            <div style={{ fontSize: '0.875rem', color: '#64748b', marginTop: '0.5rem', fontStyle: 'normal' }}>— {org.author}</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    )}
                 </div>
             </div>
-        );
-    };
+        </section>
 
-    const root = ReactDOM.createRoot(document.getElementById('root'));
-    root.render(<LeadershipImpactDashboard />);
-</script>
+        <section id="principles" class="tab-view">
+            <div class="metrics-grid">
+                <div class="card" style="padding: 2rem;">
+                    <h2 style="margin-bottom: 1.5rem;">Enable Through Clarity</h2>
+                    <p>Remove ambiguity by defining clear acceptance criteria and success metrics. Teams deliver when they understand what "done" looks like.</p>
+                    <div class="metric-item" style="margin-top: 1rem; border-left: 4px solid var(--primary);">
+                        <strong>Real-World Application:</strong> Tripled delivery capacity at BluePath Labs by clarifying requirements—no headcount increase needed.
+                    </div>
+                </div>
+                
+                <div class="card" style="padding: 2rem;">
+                    <h2 style="margin-bottom: 1.5rem;">Rhythm Over Heroics</h2>
+                    <p>Sustainable velocity comes from predictable cadence. Institute repeatable processes that compound over time.</p>
+                    <div class="metric-item" style="margin-top: 1rem; border-left: 4px solid var(--primary);">
+                        <strong>Impact:</strong> Implemented 2-week sprint rhythm across five teams, doubling portfolio revenue.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="culture" class="tab-view">
+            <div class="card" style="padding: 2rem; margin-bottom: 2rem;">
+                <h2 style="color: var(--secondary);">BluePath Labs Transformation</h2>
+                <div class="culture-grid">
+                    <div>
+                        <h4 style="color: #dc2626;">Before</h4>
+                        <ul>
+                            <li>No defined sprint cadence</li>
+                            <li>Reactive roadmap planning</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 style="color: var(--success);">After</h4>
+                        <ul>
+                            <li>Reliable two-week rhythm</li>
+                            <li>Definition of Done institutionalized</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="quote-box">
+                    "Brady transformed how we think about product delivery. We went from firefighting to strategic execution."
+                    <br><small>— Engineering Leadership, BluePath Labs</small>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        function showTab(tabId) {
+            // Hide all views
+            document.querySelectorAll('.tab-view').forEach(view => {
+                view.classList.remove('active');
+            });
+            // Show selected view
+            document.getElementById(tabId).classList.add('active');
+            
+            // Update button states
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+        }
+    </script>
 </body>
 </html>
