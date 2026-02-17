@@ -13,228 +13,116 @@
     <div id="root"></div>
 
     <script type="text/babel">
-        // Access React hooks from the global React object
-        const { useState } = React;
+    const { useState } = React;
 
-        // Map Lucide icons from the global lucide object
-        const { 
-            Users, TrendingUp, Target, Award, Zap, 
-            DollarSign, Clock, Shield, CheckCircle, ChevronRight 
-        } = lucide;
+    // The browser build of Lucide puts icons inside the 'icons' property
+    const { 
+        Users, TrendingUp, Target, Award, Zap, 
+        DollarSign, Clock, Shield, CheckCircle, ChevronRight 
+    } = lucide.icons; // Added .icons here
 
-        const LeadershipImpactDashboard = () => {
-            const [activeView, setActiveView] = useState('overview');
+    const LeadershipImpactDashboard = () => {
+        const [activeView, setActiveView] = useState('overview');
 
-            const leadershipMetrics = [
-                {
-                    category: 'Team Growth & Development',
-                    icon: Users,
-                    color: '#3b82f6',
-                    metrics: [
-                        { label: 'Teams Led', value: '12+', description: 'Engineers & researchers across five concurrent programs' },
-                        { label: 'Students Mentored', value: '200+', description: 'Through academic lab and research programs' },
-                        { label: 'Lab Membership Growth', value: '0 → 250', description: 'AR/VR innovation lab in 2 years' },
-                        { label: 'Team Capacity Increase', value: '3x', description: 'Delivery capacity tripled through process improvements' }
-                    ]
-                },
-                {
-                    category: 'Portfolio & Revenue Impact',
-                    icon: DollarSign,
-                    color: '#10b981',
-                    metrics: [
-                        { label: 'Portfolio Managed', value: '$45M', description: 'Six commercial programs delivered simultaneously' },
-                        { label: 'Revenue Growth', value: '2x', description: 'Doubled portfolio revenue in 3 years' },
-                        { label: 'Contracts Secured', value: '$26M', description: 'DOE Environmental Management program' },
-                        { label: 'Lab Funding Raised', value: '$325K', description: 'For university innovation lab operations' }
-                    ]
-                },
-                {
-                    category: 'Operational Excellence',
-                    icon: Zap,
-                    color: '#f59e0b',
-                    metrics: [
-                        { label: 'Sprint Cadence', value: '2 weeks', description: 'Instituted reliable delivery rhythm' },
-                        { label: 'Cost Savings', value: '$200K', description: 'Through rapid validation sprints' },
-                        { label: 'Interfaces Validated', value: '200', description: 'In 60 days through design sprints' },
-                        { label: 'Projects Delivered', value: '12+', description: 'LLM prototypes for cybersecurity use cases' }
-                    ]
-                },
-                {
-                    category: 'Strategic Influence',
-                    icon: Target,
-                    color: '#8b5cf6',
-                    metrics: [
-                        { label: 'Executive Briefings', value: '30+', description: 'Delivered to C-suite and senior leadership' },
-                        { label: 'Strategic Reports', value: '6', description: 'Operational assessments guiding procurement' },
-                        { label: 'Pipeline Impact', value: '$51B', description: 'GTM proposals supporting commercial pipeline' },
-                        { label: 'Security Clearance', value: 'Secret', description: 'Active through 2027 for sensitive programs' }
-                    ]
-                }
-            ];
+        // ... (Keep your metrics, principles, and cultureImpacts arrays exactly as they are) ...
 
-            const leadershipPrinciples = [
-                {
-                    principle: 'Enable Through Clarity',
-                    description: 'Remove ambiguity by defining clear acceptance criteria, success metrics, and decision frameworks.',
-                    example: 'Tripled delivery capacity at BluePath Labs by clarifying acceptance criteria.',
-                    impact: '3x capacity increase',
-                    icon: Target
-                },
-                {
-                    principle: 'Rhythm Over Heroics',
-                    description: 'Sustainable velocity comes from predictable cadence, not last-minute sprints.',
-                    example: 'Implemented two-week sprint cadence across five teams, doubling portfolio revenue.',
-                    impact: '2x revenue growth',
-                    icon: Clock
-                },
-                {
-                    principle: 'Technical Fluency as Leadership Tool',
-                    description: 'Understanding stacks and pipelines enables better product decisions.',
-                    example: 'Led 12 LLM prototype initiatives by defining reproducible evaluation pipelines.',
-                    impact: '12 AI projects delivered',
-                    icon: Zap
-                },
-                {
-                    principle: 'Customer Discovery Over Assumptions',
-                    description: 'Run lean discovery engagements with real users before committing resources.',
-                    example: 'Conducted six customer discovery sessions with emergency services leadership.',
-                    impact: '$200K cost avoidance',
-                    icon: Users
-                },
-                {
-                    principle: 'Compliance as Competitive Advantage',
-                    description: 'Security and compliance aren\'t overhead - they\'re differentiators.',
-                    example: 'CMMC 2.0 and NIST RMF expertise enabled $26M DOE contract win.',
-                    impact: '$26M contract secured',
-                    icon: Shield
-                },
-                {
-                    principle: 'Mentor for Multiplier Effect',
-                    description: 'Invest in developing others\' capabilities.',
-                    example: 'Mentored 200+ students through commercialization pathways.',
-                    impact: '200+ careers launched',
-                    icon: Award
-                }
-            ];
-
-            const cultureImpacts = [
-                {
-                    organization: 'BluePath Labs',
-                    transformation: 'From ad-hoc delivery to systematic product operations',
-                    before: ['No defined sprint cadence', 'Unclear acceptance criteria'],
-                    after: ['Two-week sprint rhythm', 'Clear definition of done'],
-                    quote: 'Brady transformed how we think about product delivery.',
-                    author: 'Engineering Leadership, BluePath Labs'
-                },
-                {
-                    organization: 'BYU Innovation Lab',
-                    transformation: 'From concept to operational research-to-product pipeline',
-                    before: ['No formal lab structure', 'Academic research disconnected'],
-                    after: ['Governance model with 250+ members', '$325K in sustained funding'],
-                    quote: 'Brady built an entire ecosystem connecting students, research, and industry.',
-                    author: 'Derek Hansen, Professor, BYU'
-                },
-                {
-                    organization: 'MetaSource',
-                    transformation: 'From engineering-driven to UX-centered product culture',
-                    before: ['Features designed by engineers', 'UX as afterthought polish'],
-                    after: ['User research informing all decisions', 'UX integrated into dev process'],
-                    quote: 'Brady turned the culture into what the CEO termed, "a UX company."',
-                    author: 'Bret Swan, Director of Product Development'
-                }
-            ];
-
-            return (
-                <div style={{ minHeight: '100vh', background: 'linear-gradient(to bottom right, #f8fafc, #e2e8f0)', fontFamily: 'sans-serif' }}>
-                    <div style={{ background: 'linear-gradient(to right, #0f172a, #1e3a8a)', color: 'white', padding: '3rem 2rem' }}>
-                        <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-                            <h1 style={{ fontSize: '3rem', fontWeight: 'bold', marginBottom: '0.75rem' }}>Leadership Impact Dashboard</h1>
-                            <p style={{ fontSize: '1.25rem', opacity: 0.9 }}>Driving measurable outcomes through team enablement and operational excellence</p>
-                        </div>
-                    </div>
-
-                    <div style={{ background: 'white', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', position: 'sticky', top: 0, zIndex: 100 }}>
-                        <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 2rem', display: 'flex', gap: '2rem' }}>
-                            {['overview', 'principles', 'culture'].map((view) => (
-                                <button key={view} onClick={() => setActiveView(view)} style={{
-                                    padding: '1rem 0.5rem', border: 'none', background: 'none', cursor: 'pointer',
-                                    borderBottom: activeView === view ? '3px solid #3b82f6' : '3px solid transparent',
-                                    color: activeView === view ? '#3b82f6' : '#64748b', fontWeight: '600'
-                                }}>
-                                    {view === 'overview' ? 'Impact Metrics' : view === 'principles' ? 'Leadership Principles' : 'Cultural Transformation'}
-                                </button>
-                            ))}
-                        </div>
-                    </div>
-
-                    <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '2rem' }}>
-                        {activeView === 'overview' && (
-                            <div style={{ display: 'grid', gap: '2rem' }}>
-                                {leadershipMetrics.map((category, idx) => (
-                                    <div key={idx} style={{ background: 'white', borderRadius: '0.75rem', overflow: 'hidden', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
-                                        <div style={{ background: category.color, color: 'white', padding: '1.5rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                                            <category.icon size={24} />
-                                            <h3 style={{ margin: 0 }}>{category.category}</h3>
-                                        </div>
-                                        <div style={{ padding: '2rem', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem' }}>
-                                            {category.metrics.map((m, i) => (
-                                                <div key={i} style={{ padding: '1.25rem', border: '1px solid #e2e8f0', borderRadius: '0.5rem' }}>
-                                                    <div style={{ fontSize: '0.75rem', color: '#64748b', textTransform: 'uppercase' }}>{m.label}</div>
-                                                    <div style={{ fontSize: '2.5rem', fontWeight: 'bold', color: category.color }}>{m.value}</div>
-                                                    <div style={{ fontSize: '0.875rem', color: '#475569' }}>{m.description}</div>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        )}
-
-                        {activeView === 'principles' && (
-                            <div style={{ display: 'grid', gap: '1.5rem' }}>
-                                {leadershipPrinciples.map((p, idx) => (
-                                    <div key={idx} style={{ background: 'white', padding: '2rem', borderRadius: '0.75rem', boxShadow: '0 2px 8px rgba(0,0,0,0.1)', display: 'flex', gap: '1.5rem' }}>
-                                        <div style={{ background: '#3b82f6', color: 'white', padding: '1rem', borderRadius: '0.5rem', height: 'fit-content' }}>
-                                            <p.icon size={32} />
-                                        </div>
-                                        <div>
-                                            <h3 style={{ marginTop: 0 }}>{p.principle}</h3>
-                                            <p style={{ color: '#475569' }}>{p.description}</p>
-                                            <div style={{ background: '#f8fafc', padding: '1rem', borderLeft: '4px solid #3b82f6' }}>
-                                                <p style={{ margin: '0 0 0.5rem 0' }}>{p.example}</p>
-                                                <span style={{ fontWeight: 'bold', color: '#1e40af' }}>Impact: {p.impact}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        )}
-
-                        {activeView === 'culture' && (
-                            <div style={{ display: 'grid', gap: '2rem' }}>
-                                {cultureImpacts.map((org, idx) => (
-                                    <div key={idx} style={{ background: 'white', borderRadius: '0.75rem', overflow: 'hidden', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
-                                        <div style={{ background: '#8b5cf6', color: 'white', padding: '1.5rem' }}>
-                                            <h3 style={{ margin: 0 }}>{org.organization}</h3>
-                                            <p style={{ margin: '0.5rem 0 0 0' }}>{org.transformation}</p>
-                                        </div>
-                                        <div style={{ padding: '2rem' }}>
-                                            <div style={{ background: '#f8fafc', padding: '1.5rem', borderLeft: '4px solid #8b5cf6', fontStyle: 'italic' }}>
-                                                "{org.quote}"
-                                                <div style={{ fontSize: '0.875rem', color: '#64748b', marginTop: '0.5rem', fontStyle: 'normal' }}>— {org.author}</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        )}
+        return (
+            <div style={{ minHeight: '100vh', background: 'linear-gradient(to bottom right, #f8fafc, #e2e8f0)', fontFamily: 'sans-serif' }}>
+                {/* Header */}
+                <div style={{ background: 'linear-gradient(to right, #0f172a, #1e3a8a)', color: 'white', padding: '3rem 2rem' }}>
+                    <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+                        <h1 style={{ fontSize: '3rem', fontWeight: 'bold', marginBottom: '0.75rem' }}>Leadership Impact Dashboard</h1>
+                        <p style={{ fontSize: '1.25rem', opacity: 0.9 }}>Driving measurable outcomes through team enablement and operational excellence</p>
                     </div>
                 </div>
-            );
-        };
 
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<LeadershipImpactDashboard />);
-    </script>
+                {/* Navigation */}
+                <div style={{ background: 'white', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', position: 'sticky', top: 0, zIndex: 100 }}>
+                    <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 2rem', display: 'flex', gap: '2rem' }}>
+                        {['overview', 'principles', 'culture'].map((view) => (
+                            <button key={view} onClick={() => setActiveView(view)} style={{
+                                padding: '1rem 0.5rem', border: 'none', background: 'none', cursor: 'pointer',
+                                borderBottom: activeView === view ? '3px solid #3b82f6' : '3px solid transparent',
+                                color: activeView === view ? '#3b82f6' : '#64748b', fontWeight: '600'
+                            }}>
+                                {view === 'overview' ? 'Impact Metrics' : view === 'principles' ? 'Leadership Principles' : 'Cultural Transformation'}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+
+                <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '2rem' }}>
+                    {/* Metrics View */}
+                    {activeView === 'overview' && (
+                        <div style={{ display: 'grid', gap: '2rem' }}>
+                            {leadershipMetrics.map((category, idx) => (
+                                <div key={idx} style={{ background: 'white', borderRadius: '0.75rem', overflow: 'hidden', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
+                                    <div style={{ background: category.color, color: 'white', padding: '1.5rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                                        {/* Use React.createElement to safely render icons from the global object */}
+                                        {React.createElement(category.icon, { size: 24 })}
+                                        <h3 style={{ margin: 0 }}>{category.category}</h3>
+                                    </div>
+                                    <div style={{ padding: '2rem', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem' }}>
+                                        {category.metrics.map((m, i) => (
+                                            <div key={i} style={{ padding: '1.25rem', border: '1px solid #e2e8f0', borderRadius: '0.5rem' }}>
+                                                <div style={{ fontSize: '0.75rem', color: '#64748b', textTransform: 'uppercase' }}>{m.label}</div>
+                                                <div style={{ fontSize: '2.5rem', fontWeight: 'bold', color: category.color }}>{m.value}</div>
+                                                <div style={{ fontSize: '0.875rem', color: '#475569' }}>{m.description}</div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+
+                    {/* Principles View */}
+                    {activeView === 'principles' && (
+                        <div style={{ display: 'grid', gap: '1.5rem' }}>
+                            {leadershipPrinciples.map((p, idx) => (
+                                <div key={idx} style={{ background: 'white', padding: '2rem', borderRadius: '0.75rem', boxShadow: '0 2px 8px rgba(0,0,0,0.1)', display: 'flex', gap: '1.5rem' }}>
+                                    <div style={{ background: '#3b82f6', color: 'white', padding: '1rem', borderRadius: '0.5rem', height: 'fit-content' }}>
+                                        {React.createElement(p.icon, { size: 32 })}
+                                    </div>
+                                    <div>
+                                        <h3 style={{ marginTop: 0 }}>{p.principle}</h3>
+                                        <p style={{ color: '#475569' }}>{p.description}</p>
+                                        <div style={{ background: '#f8fafc', padding: '1rem', borderLeft: '4px solid #3b82f6' }}>
+                                            <p style={{ margin: '0 0 0.5rem 0' }}>{p.example}</p>
+                                            <span style={{ fontWeight: 'bold', color: '#1e40af' }}>Impact: {p.impact}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+
+                    {/* Culture View */}
+                    {activeView === 'culture' && (
+                        <div style={{ display: 'grid', gap: '2rem' }}>
+                            {cultureImpacts.map((org, idx) => (
+                                <div key={idx} style={{ background: 'white', borderRadius: '0.75rem', overflow: 'hidden', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
+                                    <div style={{ background: '#8b5cf6', color: 'white', padding: '1.5rem' }}>
+                                        <h3 style={{ margin: 0 }}>{org.organization}</h3>
+                                        <p style={{ margin: '0.5rem 0 0 0' }}>{org.transformation}</p>
+                                    </div>
+                                    <div style={{ padding: '2rem' }}>
+                                        <div style={{ background: '#f8fafc', padding: '1.5rem', borderLeft: '4px solid #8b5cf6', fontStyle: 'italic' }}>
+                                            "{org.quote}"
+                                            <div style={{ fontSize: '0.875rem', color: '#64748b', marginTop: '0.5rem', fontStyle: 'normal' }}>— {org.author}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                </div>
+            </div>
+        );
+    };
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<LeadershipImpactDashboard />);
+</script>
 </body>
 </html>
