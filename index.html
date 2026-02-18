@@ -3,24 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leadership Impact Dashboard | Brady Redfearn, PhD</title>
+    <title>Executive Leadership Dashboard | Brady Redfearn, PhD</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --secondary: #8b5cf6;
+            --primary: #4f46e5;
+            --primary-dark: #3730a3;
+            --secondary: #10b981;
+            --indigo-dark: #1e1b4b;
             --text-primary: #0f172a;
             --text-secondary: #475569;
             --bg-light: #f8fafc;
             --border: #e2e8f0;
-            --success: #10b981;
-            --warning: #f59e0b;
         }
 
         body {
@@ -30,46 +24,24 @@
             background: var(--bg-light);
         }
 
-        /* Hero Section */
+        /* Executive Header */
         .hero {
-            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
             color: white;
-            padding: 4rem 2rem;
+            padding: 5rem 2rem;
             text-align: center;
         }
 
-        .hero-content {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-        }
-
-        .hero p {
-            font-size: 1.25rem;
-            opacity: 0.9;
-        }
-
-        .back-link {
-            display: inline-block;
-            margin-top: 1.5rem;
-            color: white;
-            text-decoration: none;
-            font-size: 0.9rem;
-            opacity: 0.7;
-            transition: opacity 0.2s;
-        }
-
+        .hero-content { max-width: 1000px; margin: 0 auto; }
+        .hero h1 { font-size: 3.5rem; font-weight: 800; margin-bottom: 1rem; letter-spacing: -0.02em; }
+        .hero p { font-size: 1.4rem; opacity: 0.9; font-weight: 300; margin-bottom: 2rem; }
+        .back-link { color: white; text-decoration: none; opacity: 0.6; font-size: 0.9rem; transition: 0.2s; }
         .back-link:hover { opacity: 1; }
 
-        /* Tabs Navigation */
+        /* Navigation */
         .nav-tabs {
             background: white;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border-bottom: 1px solid var(--border);
             position: sticky;
             top: 0;
             z-index: 100;
@@ -79,21 +51,23 @@
             max-width: 1200px;
             margin: 0 auto;
             display: flex;
-            gap: 2rem;
+            gap: 2.5rem;
             padding: 0 2rem;
             overflow-x: auto;
         }
 
         .tab-btn {
-            padding: 1rem 0.5rem;
+            padding: 1.25rem 0.5rem;
             border: none;
             background: none;
-            font-weight: 600;
+            font-weight: 700;
             color: var(--text-secondary);
             cursor: pointer;
             border-bottom: 3px solid transparent;
             white-space: nowrap;
-            transition: all 0.2s;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
         }
 
         .tab-btn.active {
@@ -101,86 +75,74 @@
             border-bottom-color: var(--primary);
         }
 
-        /* Container */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
+        /* Content Container */
+        .container { max-width: 1200px; margin: 3rem auto; padding: 0 2rem; }
         .tab-view { display: none; }
         .tab-view.active { display: block; }
 
-        /* Grid Layouts */
+        /* Metric Scorecards */
         .metrics-grid {
             display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
+            margin-bottom: 3rem;
         }
 
-        .card {
+        .metric-card {
             background: white;
+            padding: 2.5rem;
             border-radius: 12px;
             border: 1px solid var(--border);
-            overflow: hidden;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
         }
 
-        .card-header {
-            padding: 1.5rem;
-            color: white;
-            font-weight: 700;
-            font-size: 1.25rem;
-        }
-
-        .metrics-inner-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 1.5rem;
-            padding: 2rem;
-        }
-
-        .metric-item {
-            padding: 1.25rem;
-            background: var(--bg-light);
-            border-radius: 8px;
-            border: 1px solid var(--border);
-        }
-
-        .metric-label {
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: var(--text-secondary);
-            margin-bottom: 0.5rem;
-        }
+        .metric-card:hover { transform: translateY(-5px); }
 
         .metric-value {
-            font-size: 2.25rem;
+            font-size: 3rem;
             font-weight: 800;
             color: var(--primary);
             line-height: 1;
             margin-bottom: 0.5rem;
         }
 
-        /* Culture Transformation Styles */
-        .culture-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            margin-top: 1.5rem;
+        .metric-label {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--indigo-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
         }
 
-        .quote-box {
-            margin-top: 1.5rem;
-            padding: 1.5rem;
-            background: var(--bg-light);
-            border-left: 4px solid var(--secondary);
-            font-style: italic;
+        .metric-desc { font-size: 1rem; color: var(--text-secondary); }
+
+        /* Principles Layout */
+        .principle-item {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            border-left: 6px solid var(--primary);
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .principle-item h2 { margin-bottom: 1rem; color: var(--indigo-dark); }
+
+        /* Footer */
+        .footer-cta {
+            background: var(--indigo-dark);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            border-radius: 16px;
+            margin-top: 4rem;
         }
 
         @media (max-width: 768px) {
-            .culture-grid { grid-template-columns: 1fr; }
-            .hero h1 { font-size: 2rem; }
+            .hero h1 { font-size: 2.5rem; }
+            .metric-card { padding: 1.5rem; }
         }
     </style>
 </head>
@@ -188,117 +150,88 @@
 
     <header class="hero">
         <div class="hero-content">
+            <a href="https://redfearnb.github.io" class="back-link">← Portfolio Overview</a>
             <h1>Leadership Impact Dashboard</h1>
-            <p>Driving measurable outcomes through team enablement and operational excellence</p>
-            <a href="https://redfearnb.github.io" class="back-link">← Back to Portfolio</a>
+            <p>Architecting high-velocity product organizations through systems thinking and team enablement.</p>
         </div>
     </header>
 
     <nav class="nav-tabs">
         <div class="nav-content">
-            <button class="tab-btn active" onclick="showTab('overview')">Impact Metrics</button>
-            <button class="tab-btn" onclick="showTab('principles')">Leadership Principles</button>
-            <button class="tab-btn" onclick="showTab('culture')">Cultural Transformation</button>
+            <button class="tab-btn active" onclick="showTab('performance')">Executive Performance</button>
+            <button class="tab-btn" onclick="showTab('influence')">Strategic Influence</button>
+            <button class="tab-btn" onclick="showTab('enablement')">Team Enablement</button>
         </div>
     </nav>
 
     <div class="container">
-        <section id="overview" class="tab-view active">
+        <section id="performance" class="tab-view active">
             <div class="metrics-grid">
-                <div class="card">
-                    <div class="card-header" style="background: var(--primary);">Team Growth & Development</div>
-                    <div class="metrics-inner-grid">
-                        <div class="metric-item">
-                            <div class="metric-label">Teams Led</div>
-                            <div class="metric-value">12+</div>
-                            <p>Engineers across five concurrent programs</p>
-                        </div>
-                        <div class="metric-item">
-                            <div class="metric-label">Capacity Increase</div>
-                            <div class="metric-value">3x</div>
-                            <p>Triple delivery capacity via process improvements</p>
-                        </div>
-                    </div>
+                <div class="metric-card">
+                    <div class="metric-label">Managed Scope</div>
+                    <div class="metric-value">$45M</div>
+                    <p class="metric-desc">Scaled product portfolio from pilot phase to enterprise-wide adoption across six concurrent commercial programs.</p>
                 </div>
-
-                <div class="card">
-                    <div class="card-header" style="background: var(--success);">Portfolio & Revenue Impact</div>
-                    <div class="metrics-inner-grid">
-                        <div class="metric-item">
-                            <div class="metric-label">Portfolio Managed</div>
-                            <div class="metric-value">$45M</div>
-                            <p>Six commercial programs delivered simultaneously</p>
-                        </div>
-                        <div class="metric-item">
-                            <div class="metric-label">Contracts Secured</div>
-                            <div class="metric-value">$26M</div>
-                            <p>DOE Environmental Management program</p>
-                        </div>
-                    </div>
+                <div class="metric-card">
+                    <div class="metric-label">Execution Velocity</div>
+                    <div class="metric-value">3x</div>
+                    <p class="metric-desc">Tripled cross-functional delivery capacity through operational cadence optimization and technical debt reduction.</p>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Revenue Growth</div>
+                    <div class="metric-value">2x</div>
+                    <p class="metric-desc">Doubled portfolio revenue in a 36-month cycle by aligning product roadmap with high-value GTM opportunities.</p>
                 </div>
             </div>
         </section>
 
-        <section id="principles" class="tab-view">
+        <section id="influence" class="tab-view">
             <div class="metrics-grid">
-                <div class="card" style="padding: 2rem;">
-                    <h2 style="margin-bottom: 1.5rem;">Enable Through Clarity</h2>
-                    <p>Remove ambiguity by defining clear acceptance criteria and success metrics. Teams deliver when they understand what "done" looks like.</p>
-                    <div class="metric-item" style="margin-top: 1rem; border-left: 4px solid var(--primary);">
-                        <strong>Real-World Application:</strong> Tripled delivery capacity at BluePath Labs by clarifying requirements—no headcount increase needed.
-                    </div>
+                <div class="metric-card">
+                    <div class="metric-label">Pipeline Impact</div>
+                    <div class="metric-value">$51B</div>
+                    <p class="metric-desc">Authored GTM materials and capture strategies supporting a record-scale opportunity pipeline.</p>
                 </div>
-                
-                <div class="card" style="padding: 2rem;">
-                    <h2 style="margin-bottom: 1.5rem;">Rhythm Over Heroics</h2>
-                    <p>Sustainable velocity comes from predictable cadence. Institute repeatable processes that compound over time.</p>
-                    <div class="metric-item" style="margin-top: 1rem; border-left: 4px solid var(--primary);">
-                        <strong>Impact:</strong> Implemented 2-week sprint rhythm across five teams, doubling portfolio revenue.
-                    </div>
+                <div class="metric-card">
+                    <div class="metric-label">Executive Briefings</div>
+                    <div class="metric-value">30+</div>
+                    <p class="metric-desc">Delivered technical findings and strategic roadmaps to C-suite leadership and government stakeholders.</p>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Contract Wins</div>
+                    <div class="metric-value">$26M</div>
+                    <p class="metric-desc">Secured major funding through rigorous technical validation and stakeholder alignment at the DOE level.</p>
                 </div>
             </div>
         </section>
 
-        <section id="culture" class="tab-view">
-            <div class="card" style="padding: 2rem; margin-bottom: 2rem;">
-                <h2 style="color: var(--secondary);">BluePath Labs Transformation</h2>
-                <div class="culture-grid">
-                    <div>
-                        <h4 style="color: #dc2626;">Before</h4>
-                        <ul>
-                            <li>No defined sprint cadence</li>
-                            <li>Reactive roadmap planning</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h4 style="color: var(--success);">After</h4>
-                        <ul>
-                            <li>Reliable two-week rhythm</li>
-                            <li>Definition of Done institutionalized</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="quote-box">
-                    "Brady transformed how we think about product delivery. We went from firefighting to strategic execution."
-                    <br><small>— Engineering Leadership, BluePath Labs</small>
+        <section id="enablement" class="tab-view">
+            <div class="principle-item">
+                <h2>Enablement Through Systems Thinking</h2>
+                <p>I apply my PhD background in <strong>Systems Engineering</strong> to remove execution blockers. By treating a team as a complex system, I identify the "constraints" (bottlenecks) in the delivery pipeline and solve them through process automation and clear acceptance criteria.</p>
+                <div style="margin-top: 1.5rem; padding: 1rem; background: var(--bg-light); border-radius: 8px;">
+                    <strong>Outcome:</strong> Validated 200 interfaces in a single 60-day rapid sprint, avoiding an estimated $200K in development rework.
                 </div>
             </div>
+
+            <div class="principle-item">
+                <h2>Mentorship & Culture</h2>
+                <p>I have mentored over 200+ students and professionals through academic lab and research programs, bridging the gap between theoretical research and commercial proof-of-concepts.</p>
+            </div>
         </section>
+
+        <div class="footer-cta">
+            <h3>Strategic Leadership for High-Stakes Environments</h3>
+            <p style="margin: 1rem 0 2rem; opacity: 0.8;">Seeking opportunities to drive organizational growth as a Chief Product Officer or VP of Product.</p>
+            <a href="https://www.linkedin.com/in/redfearnb/" style="background: var(--primary); color: white; padding: 1rem 2rem; text-decoration: none; border-radius: 8px; font-weight: 700;">View Executive Profile</a>
+        </div>
     </div>
 
     <script>
         function showTab(tabId) {
-            // Hide all views
-            document.querySelectorAll('.tab-view').forEach(view => {
-                view.classList.remove('active');
-            });
-            // Show selected view
+            document.querySelectorAll('.tab-view').forEach(view => view.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
-            
-            // Update button states
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             event.currentTarget.classList.add('active');
         }
     </script>
